@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+                    <!-- Google Fonts and Icons Awesome -->
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css"> 
+  <link href="https://fonts.googleapis.com/css?family=Pirata+One" rel="stylesheet" type="text/css">
+  <link href='http://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
+
+  <!-- Theme styles -->
+  <!-- Required css -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="index.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    
+  <!-- Latest compiled and minified JavaScript -->  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+ 
+  <title>My Locale Weather</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <script>
+    $(document).ready(function() {
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          // $("#data").append("latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude);
+          var woeidQuery = `SELECT woeid FROM geo.places(1) WHERE text="(${crd.latitude},${crd.longitude})"`;
+          var weathQuery = `https://query.yahooapis.com/v1/public/yql?q=SELECT location, item.condition FROM weather.forecast WHERE woeid IN (${woeidQuery})&format=json`;
+          console.log(woeidQuery[0]['title']);
+
+          obj['query']['results']['channel']['location']['city'] + ',' + obj['query']['results']['channel']['location']['region'] + ', ' + obj['query']['results']['channel']['location']['country']
+
+          obj['query']['results']['channel']['item']['condition']['temp']
+          obj['query']['results']['channel']['item']['condition']['date']
+          obj['query']['results']['channel']['item']['condition']['text']
+          obj['query']['results']['channel']['item']['condition']['code']
+
+          $.getJSON("https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/search/?lattlong=" + position.coords.latitude + "," + position.coords.longitude, function(data) {                 
+            console.log(data[0]['title']);
+            $.getJSON("https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/" + data[0]['woeid'] + "/", function(weather) {
+              $(".curWeather").html('<h4>Your city:<i> ' + weather['title'] + ', ' + weather['parent']['title']);
+              $(".curWeather").html('<h4>Your city:<i> ' + weather['title'] + ', ' + weather['parent']['title']);
+            });
+          });
+        });
+      };
+
+      // $("#getQuote").on("click", function(){
+      //     $.getJSON("https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/search/?lattlong=37.4,-122.12s", function(data) {
+                            
+      //     console.log(data[0]['title']);
+      //     $(".cityName").append('<h4><i>" ' + data[0]['title'] + ' "</i></h4>');
+      //     // $(".author").html('<p id="author"> —  ' + json.quoteAuthor + '</p>');
+      //     });
+      // });
+    });
+  </script>
+  <div class="container body-width">
+    <h1>"Hello!"</h1>
+
+    <!-- <div id="data">
+      <h4>Your location:</h4>
+    </div> -->
+
+     <div class="curWeather">
+      <h4>Your city:</h4>
+    </div>
+
+    <!-- <div class = "row text-center">
+      <div class="col-6">    
+        <button id = "getQuote" class = "button">Get Quote</button>
+      </div>
+    </div>  -->   
+  </div>    
+
+</body>
+
+</html>

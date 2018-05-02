@@ -1,0 +1,16 @@
+body {    
+  font-family: 'Oswald', Impact, sans-serif !important;
+  color: rgb(102, 102, 102) !important;
+}
+
+.body-width {
+  width: 90%;
+  min-height: 800px;
+  margin: 15px;
+  padding: 15px;
+  border: 2px solid #009688;
+  background-image: url('imgs/14.jpg');
+  background-repeat: no-repeat;
+  background-size: auto 800px;
+  background-color: #00CFBB;
+}
