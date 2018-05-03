@@ -27,62 +27,47 @@
 
 </head>
 
-<body>
-  <script>
-    $(document).ready(function() {
+  <body>
+    <script>
+      $(document).ready(function() {
 
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          // $("#data").append("latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude);
-          var woeidQuery = `SELECT woeid FROM geo.places(1) WHERE text="(${crd.latitude},${crd.longitude})"`;
-          var weathQuery = `https://query.yahooapis.com/v1/public/yql?q=SELECT location, item.condition FROM weather.forecast WHERE woeid IN (${woeidQuery})&format=json`;
-          console.log(woeidQuery[0]['title']);
-
-          obj['query']['results']['channel']['location']['city'] + ',' + obj['query']['results']['channel']['location']['region'] + ', ' + obj['query']['results']['channel']['location']['country']
-
-          obj['query']['results']['channel']['item']['condition']['temp']
-          obj['query']['results']['channel']['item']['condition']['date']
-          obj['query']['results']['channel']['item']['condition']['text']
-          obj['query']['results']['channel']['item']['condition']['code']
-
-          $.getJSON("https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/search/?lattlong=" + position.coords.latitude + "," + position.coords.longitude, function(data) {                 
-            console.log(data[0]['title']);
-            $.getJSON("https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/" + data[0]['woeid'] + "/", function(weather) {
-              $(".curWeather").html('<h4>Your city:<i> ' + weather['title'] + ', ' + weather['parent']['title']);
-              $(".curWeather").html('<h4>Your city:<i> ' + weather['title'] + ', ' + weather['parent']['title']);
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var woeidQuery = `SELECT woeid FROM geo.places(1) WHERE text="(${position.coords.latitude},${position.coords.longitude})"`;
+            var weathQuery = `https://query.yahooapis.com/v1/public/yql?q=SELECT location, item.condition FROM weather.forecast WHERE woeid IN (${woeidQuery})&format=json`;
+              $.getJSON(weathQuery, function(data) {
+              var location = data['query']['results']['channel']['location']; 
+              var curPlace = location['city'] + ',' + location['region'] + ', ' + location['country'];
+              var condition = data['query']['results']['channel']['item']['condition'];
+              // console.log(condition);
+                $(".place").html('<h4>Your city:<i> ' + curPlace + '</i></h4>');
+                $(".currWeather").html('<h4>Curr temperature:<i> ' + condition['temp'] + '&deg;F</i></h4>' + '<h4>Last Update:<i> ' + condition['date'] + '</i></h4>' + '<h4>Code:<i> ' + condition['code'] + '</i></h4>' + '<h4>Curr condition:<i> ' + condition['text'] + '</i></h4>');
             });
           });
-        });
-      };
+        };
 
-      // $("#getQuote").on("click", function(){
-      //     $.getJSON("https://cors-anywhere.herokuapp.com/https://www.metaweather.com/api/location/search/?lattlong=37.4,-122.12s", function(data) {
-                            
-      //     console.log(data[0]['title']);
-      //     $(".cityName").append('<h4><i>" ' + data[0]['title'] + ' "</i></h4>');
-      //     // $(".author").html('<p id="author"> —  ' + json.quoteAuthor + '</p>');
-      //     });
-      // });
-    });
-  </script>
-  <div class="container body-width">
-    <h1>"Hello!"</h1>
 
-    <!-- <div id="data">
-      <h4>Your location:</h4>
-    </div> -->
+      });
+    </script>
 
-     <div class="curWeather">
-      <h4>Your city:</h4>
+    <div class="flex-container body-width">
+      <h1>My Locale Weather</h1>
+    
+      <div class="currWeather">
+        <h4></h4>
+      </div>
+
+      <div class="place">
+        <h4></h4>
+      </div>
+
+    <div class = "row text-center">
+      <div class="col-6">    
+        <button iclass = "button cnvrtTemp">To &deg;C</button>
+      </div>
     </div>
 
-    <!-- <div class = "row text-center">
-      <div class="col-6">    
-        <button id = "getQuote" class = "button">Get Quote</button>
-      </div>
-    </div>  -->   
-  </div>    
+    </div>    
 
-</body>
-
+  </body>
 </html>
