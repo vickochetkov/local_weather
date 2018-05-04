@@ -1,23 +1,100 @@
+* {
+  padding: 0px;
+  margin: 0px
+}
+
 body {    
   font-family: 'Oswald', Impact, sans-serif !important;
-  color: rgb(102, 102, 102) !important;
+  color: #d2d2d2 !important;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-.body-width {
-  /*width: 90%;*/
-  height: 100vh;
-  /*margin: 15px;*/
-  /*padding: 15px;*/
-  /*border: 2px solid #009688;*/
-  /*background-image: url('imgs/14.jpg');*/
-  /*background-repeat: no-repeat;*/
-  /*background-size: auto 800px;*/
-  background-color: #00CFBB;
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.8);
+  width: 25em;  
 }
 
-.flex-container {
-  display: -webkit-flex; /*required for mobile safari*/
-  display: flex;
+#informer {
+  opacity: 0.8;
+  filter: alpha(opacity=80); /* For IE8 and earlier */
 }
+
+#informer:hover {
+  opacity: 1.0;
+  filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+
+#dr {
+  opacity: 0.5;
+  filter: alpha(opacity=85); /* For IE8 and earlier */
+}
+
+#dr:hover {
+  opacity: 1.0;
+  filter: alpha(opacity=100); /* For IE8 and earlier */
+}
+
+.brandName {
+  top: 10%;
+  position: absolute;  
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.8);
+  width: 15em;  
+}
+
+.bg-img {
+  position: absolute;
+  background: lightgray no-repeat center center fixed;
+  -webkit-background-size: cover;
+  background-size: cover;  
+  left: 0;
+  top: 0;
+  width:100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.currTemp {
+  color: gold;
+  font-size: 6em;  
+}
+
+.frame {
+  border: 1px solid gold;  
+}
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn1 {
+    background-color: #404040;
+    color: gold;
+    border: 1px solid gold;
+    font-size: 1em;    
+}
+
+.btn1:hover {
+    background-color: gold;
+    color: #404040;
+    font-size: 1.5em;
+}
+
+

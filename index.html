@@ -20,52 +20,46 @@
   <!-- Latest compiled and minified JavaScript -->  
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
  
-  <title>My Locale Weather</title>
+  <title>Dr. Weather</title>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+   <script src="index.js" defer></script>
 
 </head>
 
   <body>
-    <script>
-      $(document).ready(function() {
-
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var woeidQuery = `SELECT woeid FROM geo.places(1) WHERE text="(${position.coords.latitude},${position.coords.longitude})"`;
-            var weathQuery = `https://query.yahooapis.com/v1/public/yql?q=SELECT location, item.condition FROM weather.forecast WHERE woeid IN (${woeidQuery})&format=json`;
-              $.getJSON(weathQuery, function(data) {
-              var location = data['query']['results']['channel']['location']; 
-              var curPlace = location['city'] + ',' + location['region'] + ', ' + location['country'];
-              var condition = data['query']['results']['channel']['item']['condition'];
-              // console.log(condition);
-                $(".place").html('<h4>Your city:<i> ' + curPlace + '</i></h4>');
-                $(".currWeather").html('<h4>Curr temperature:<i> ' + condition['temp'] + '&deg;F</i></h4>' + '<h4>Last Update:<i> ' + condition['date'] + '</i></h4>' + '<h4>Code:<i> ' + condition['code'] + '</i></h4>' + '<h4>Curr condition:<i> ' + condition['text'] + '</i></h4>');
-            });
-          });
-        };
-
-
-      });
-    </script>
-
-    <div class="flex-container body-width">
-      <h1>My Locale Weather</h1>
     
-      <div class="currWeather">
-        <h4></h4>
+    <div class="container body-width">
+
+      <br>
+      <div class="brandName text-center" id="dr">
+        <i class="fas fa-graduation-cap fa-2x"></i><h1>Dr. Weather</h1>
       </div>
 
-      <div class="place">
-        <h4></h4>
-      </div>
+      <img class="bg-img" src="https://source.unsplash.com/Nhs0sLAn1Is" alt="Kasol, India" style="width:100%">
+      <div class="centered" id="informer">
+        <h1 class="place" style="text-align: center"></h1>
+        <div class="row">
+          
+          <div class="col-1"></div>      
 
-    <div class = "row text-center">
-      <div class="col-6">    
-        <button iclass = "button cnvrtTemp">To &deg;C</button>
-      </div>
-    </div>
+          <div class="col-3 currWeather text-center">            
+          </div>
+
+          <div class="col-7 frame">
+            <p class="currTemp text-center">00 &deg;F</p>            
+            <button class = "button toC btn1">To &deg;C</button>
+          </div>
+          <!-- <div class="col-1"></div>        -->
+          
+        </div>
+
+        <div class="lastUpd text-center">            
+        </div>
+
+      </div> 
+      
 
     </div>    
 
