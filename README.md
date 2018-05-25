@@ -11,4 +11,5 @@
   <li>I can push a button to toggle between Fahrenheit and Celsius.</li>
 </ul>
 <p>---------------------------------</p>
-<img src="https://github.com/vickochetkov/local_weather/blob/master/KeZiN.gif" alt="gif" width="300" height="300>
+Preview:
+https://github.com/vickochetkov/local_weather/blob/master/KeZiN.gif
